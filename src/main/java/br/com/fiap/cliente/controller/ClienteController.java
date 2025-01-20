@@ -24,7 +24,7 @@ public class ClienteController {
     })
     @GetMapping
     public ResponseEntity<Collection<ClienteDTO>> findAllUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userUseCase.findAllUsers());
+        return ResponseEntity.status(HttpStatus.OK).body(clienteUseCase.findAllUsers());
     }
 
     @Operation(summary = "Procura um cliente pelo ID")
@@ -36,7 +36,7 @@ public class ClienteController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDTO> findUserById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(clienteUseCase.findUserById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(clienteUseCase.findClienteById(id));
     }
 
     @Operation(summary = "Cria um novo cliente")
@@ -47,7 +47,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PostMapping
-    public ResponseEntity<ClienteDTO> createUser(@Valid @RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<ClienteDTO> criaCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteUseCase.criarCliente(clienteDTO));
     }
 
@@ -60,7 +60,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteDTO> updateUser(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<ClienteDTO> updateUser(@PathVariable UUID id, @Valid @RequestBody ClienteDTO clienteDTO) {
         var result = clienteUseCase.updateCliente(id, clienteDTO);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -73,8 +73,8 @@ public class ClienteController {
     })
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable UUID id) {
-        clienteUseCase.deleteCliente(id);
+    public ResponseEntity<Void> deletaCliente(@PathVariable UUID id) {
+        clienteUseCase.deletaCliente(id);
         return ResponseEntity.noContent().build();
     }
 }

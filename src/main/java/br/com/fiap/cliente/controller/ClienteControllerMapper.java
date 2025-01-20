@@ -14,7 +14,7 @@ public class ClienteControllerMapper {
                 clienteDTO.cpf());
     }
 
-    public ClienteEntity toUserEntity(Cliente cliente) {
+    public ClienteEntity toClienteEntity(Cliente cliente) {
         return new ClienteEntity(
                 cliente.getName(),
                 cliente.getEmail(),
@@ -29,7 +29,7 @@ public class ClienteControllerMapper {
                 cliente.getCpf());
     }
 
-    public ClienteDTO toUserDTO(ClienteEntity clienteEntity) {
+    public ClienteDTO toClienteDTO(ClienteEntity clienteEntity) {
         return new ClienteDTO(
                 clienteEntity.getId(),
                 clienteEntity.getName(),
