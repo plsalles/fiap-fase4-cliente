@@ -1,40 +1,47 @@
 package br.com.fiap.cliente.controller;
 
 import br.com.fiap.cliente.domain.Cliente;
-import br.com.fiap.cliente.domain.ClienteEntity;
+import br.com.fiap.cliente.gateway.database.jpa.entity.ClienteEntity;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class ClienteControllerMapper {
 
     public Cliente toClienteDomain(ClienteDTO clienteDTO) {
         return new Cliente(
-                clienteDTO.name(),
+                clienteDTO.nome(),
                 clienteDTO.email(),
-                clienteDTO.cpf());
+                clienteDTO.telefone(),
+                clienteDTO.endereco(),
+                clienteDTO.dataCadastro());
+    }
+
+    public Cliente toClienteDomain(ClienteEntity clienteEntity) {
+        return new Cliente(
+                clienteEntity.getNome(),
+                clienteEntity.getEmail(),
+                clienteEntity.getTelefone(),
+                clienteEntity.getEndereco(),
+                clienteEntity.getDataCadastro());
     }
 
     public ClienteEntity toClienteEntity(Cliente cliente) {
         return new ClienteEntity(
-                cliente.getName(),
+                cliente.getNome(),
                 cliente.getEmail(),
-                cliente.getCpf());
-    }
-
-    public ClienteEntity toClienteEntity(UUID id, Cliente cliente) {
-        return new ClienteEntity(
-                id,
-                cliente.getName(),
-                cliente.getEmail(),
-                cliente.getCpf());
+                cliente.getTelefone(),
+                cliente.getEndereco(),
+                cliente.getDataCadastro());
     }
 
     public ClienteDTO toClienteDTO(ClienteEntity clienteEntity) {
         return new ClienteDTO(
-                clienteEntity.getId(),
-                clienteEntity.getName(),
+                clienteEntity.getNome(),
                 clienteEntity.getEmail(),
-                clienteEntity.getCpf()
+                clienteEntity.getTelefone(),
+                clienteEntity.getEndereco(),
+                clienteEntity.getDataCadastro()
         );
     }
 }
