@@ -1,29 +1,17 @@
 package br.com.fiap.cliente.gateway;
 
-import br.com.fiap.cliente.domain.ClienteEntity;
-import lombok.AllArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import br.com.fiap.cliente.gateway.database.jpa.entity.ClienteEntity;
 
 import java.util.Collection;
-import java.util.UUID;
 
-@AllArgsConstructor
-public class ClienteGateway {
-    private final ClienteRepository clienteRepository;
+public interface ClienteGateway {
 
-    public Collection<ClienteEntity> findAll() {
-        return clienteRepository.findAll();
-    }
+    Collection<ClienteEntity> findAllCliente();
 
-    public ClienteEntity findById(UUID id){
-        return clienteRepository.findById(id).orElseThrow(() -> new ChangeSetPersister.NotFoundException("Cliente " + id + " não encontrado."));
-    }
+    ClienteEntity findById(Long id);
 
-    public ClienteEntity save(ClienteEntity clienteEntity) {
-        return (ClienteEntity) clienteRepository.save(clienteEntity);
-    }
+    ClienteEntity save(ClienteEntity clienteEntity);
 
-    public void deleteById(UUID id) {
-        clienteRepository.deleteById(id);
-    }
+    void deleteById(Long id);
+
 }

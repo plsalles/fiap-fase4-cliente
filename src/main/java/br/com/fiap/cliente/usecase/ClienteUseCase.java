@@ -2,23 +2,26 @@ package br.com.fiap.cliente.usecase;
 
 import br.com.fiap.cliente.controller.ClienteControllerMapper;
 import br.com.fiap.cliente.controller.ClienteDTO;
+
 import br.com.fiap.cliente.gateway.ClienteGateway;
 import lombok.AllArgsConstructor;
 import lombok.val;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.UUID;
 
 @AllArgsConstructor
+@Service
 public class ClienteUseCase {
+
     private final ClienteGateway clienteGateway;
     private final ClienteControllerMapper mapper;
 
     public Collection<ClienteDTO> findAllUsers() {
-        return clienteGateway.findAll().stream().map(mapper::toClienteDTO).toList();
+        return clienteGateway.findAllCliente().stream().map(mapper::toClienteDTO).toList();
     }
 
-    public ClienteDTO findClienteById(UUID id) {
+    public ClienteDTO findClienteById(Long id) {
         return mapper.toClienteDTO(clienteGateway.findById(id));
     }
 
@@ -28,17 +31,17 @@ public class ClienteUseCase {
         return mapper.toClienteDTO(clienteGateway.save(clienteEntity));
     }
 
-    public ClienteDTO updateCliente(UUID id, ClienteDTO clienteDTO) {
+    public ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO) {
         val clienteDomain = mapper.toClienteDomain(findClienteById(id));
         val clienteDomainNew = mapper.toClienteDomain(clienteDTO);
-        clienteDomain.setName(clienteDomainNew.getName());
+
+        clienteDomain.setNome(clienteDomainNew.getNome());
         clienteDomain.setEmail(clienteDomainNew.getEmail());
-        return mapper.toClienteDTO(clienteGateway.save(mapper.toClienteEntity(id, clienteDomain)));
+        return mapper.toClienteDTO(clienteGateway.save(mapper.toClienteEntity(clienteDomain)));
     }
 
-    public void deletaCliente(UUID id) {
+    public void deletaCliente(Long id) {
         clienteGateway.deleteById(id);
     }
 
-    }
 }

@@ -1,14 +1,20 @@
 package br.com.fiap.cliente.controller;
 
-import br.com.fiap.cliente.domain.ClienteEntity;
+import br.com.fiap.cliente.gateway.database.jpa.entity.ClienteEntity;
+
 import br.com.fiap.cliente.usecase.ClienteUseCase;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -60,7 +66,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteDTO> updateUser(@PathVariable UUID id, @Valid @RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<ClienteDTO> updateUser(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO) {
         var result = clienteUseCase.updateCliente(id, clienteDTO);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -73,7 +79,7 @@ public class ClienteController {
     })
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletaCliente(@PathVariable UUID id) {
+    public ResponseEntity<Void> deletaCliente(@PathVariable Long id) {
         clienteUseCase.deletaCliente(id);
         return ResponseEntity.noContent().build();
     }
