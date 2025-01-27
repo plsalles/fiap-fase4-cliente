@@ -14,4 +14,5 @@ public interface ClienteGateway {
 
     void deleteById(Long id);
 
+    boolean existsById(Long id);
 }

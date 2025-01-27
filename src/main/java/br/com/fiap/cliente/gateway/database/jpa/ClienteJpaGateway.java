@@ -34,4 +34,9 @@ public class ClienteJpaGateway implements ClienteGateway {
         clienteRepository.deleteById(id);
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        return clienteRepository.existsById(id);
+    }
+
 }
