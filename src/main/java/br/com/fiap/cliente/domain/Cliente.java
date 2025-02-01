@@ -1,14 +1,16 @@
 package br.com.fiap.cliente.domain;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDate;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Data
+@NoArgsConstructor
+
 public class Cliente {
     private String nome;
     private String email;
@@ -19,13 +21,13 @@ public class Cliente {
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
     private static final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
-    private static final String TELEFONE_REGEX = "^(\\+\\d{1,3}\\s?)?(\\(?\\d{2}\\)?\\s?)?(9\\d{4}|\\d{4})[-.\\s]?\\d{4}$";
+    private static final String TELEFONE_REGEX = "^\\(\\d{2}\\)\\d{5}-\\d{4}$";
     private static final Pattern telefonePattern = Pattern.compile(TELEFONE_REGEX);
 
 
     public Cliente(String nome, String email, String telefone, String endereco, LocalDate dataCadastro) {
         isValidoEmail(email);
-        isValidoTelefone(endereco);
+        isValidoTelefone(telefone);
 
         this.nome = nome;
         this.email = email;

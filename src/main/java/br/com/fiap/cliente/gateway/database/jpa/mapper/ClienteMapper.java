@@ -1,29 +1,20 @@
-package br.com.fiap.cliente.controller;
+package br.com.fiap.cliente.gateway.database.jpa.mapper;
 
+import br.com.fiap.cliente.controller.ClienteDTO;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.database.jpa.entity.ClienteEntity;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.util.UUID;
+@Component
+public class ClienteMapper {
 
-public class ClienteControllerMapper {
-
-    public Cliente toClienteDomain(ClienteDTO clienteDTO) {
+    public Cliente clienteDTOtoClienteDomain(ClienteDTO clienteDTO) {
         return new Cliente(
                 clienteDTO.nome(),
                 clienteDTO.email(),
                 clienteDTO.telefone(),
                 clienteDTO.endereco(),
                 clienteDTO.dataCadastro());
-    }
-
-    public Cliente toClienteDomain(ClienteEntity clienteEntity) {
-        return new Cliente(
-                clienteEntity.getNome(),
-                clienteEntity.getEmail(),
-                clienteEntity.getTelefone(),
-                clienteEntity.getEndereco(),
-                clienteEntity.getDataCadastro());
     }
 
     public ClienteEntity toClienteEntity(Cliente cliente) {
