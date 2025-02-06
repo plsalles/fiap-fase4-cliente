@@ -2,12 +2,14 @@ package br.com.fiap.cliente.gateway.database.jpa.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Data
 @Table(name = "clientes")
+@NoArgsConstructor
 public class ClienteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

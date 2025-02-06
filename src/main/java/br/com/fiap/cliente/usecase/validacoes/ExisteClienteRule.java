@@ -13,7 +13,7 @@ public class ExisteClienteRule implements ValidaClienteRule {
 
     @Override
     public boolean validarCliente(Long id) {
-        if (clienteGateway.existsById(id)) {
+        if (!clienteGateway.existsById(id)) {
             throw new NotFoundException("Não existe cliente com o id informado.");
         }
         return true;

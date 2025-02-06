@@ -1,23 +1,23 @@
 services:
   postgres:
-    container_name: postgres
     image: postgres:latest
     restart: always
     ports:
       - "5432:5432"
     environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: cliente-api
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ClienteApi
     networks:
       - cliente-api-network
     volumes:
       - cliente-api-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
       interval: 10s
-      timeout: 5s
       retries: 5
+      start_period: 30s
+      timeout: 10s
 
   app:
     container_name: cliente-api
@@ -30,7 +30,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cliente-api
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ClienteApi
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     networks:

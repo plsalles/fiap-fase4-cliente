@@ -3,6 +3,7 @@ package br.com.fiap.cliente.usecase;
 import br.com.fiap.cliente.controller.ClienteDTO;
 import br.com.fiap.cliente.domain.Cliente;
 import br.com.fiap.cliente.gateway.ClienteGateway;
+import br.com.fiap.cliente.gateway.database.jpa.entity.ClienteEntity;
 import br.com.fiap.cliente.gateway.database.jpa.mapper.ClienteMapper;
 import br.com.fiap.cliente.usecase.validacoes.ValidaClienteRule;
 import lombok.RequiredArgsConstructor;
@@ -37,15 +38,15 @@ public class ClienteUseCase {
     public ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO) {
         validarCliente(id);
 
-        var clienteExitente = mapper.clienteDTOtoClienteDomain(findClienteById(id));
+        var clienteExitente = clienteGateway.findById(id);
         var clienteNovo = mapper.clienteDTOtoClienteDomain(clienteDTO);
 
         atualizarDadosCliente(clienteExitente, clienteNovo);
 
-        return mapper.toClienteDTO(clienteGateway.save(mapper.toClienteEntity(clienteExitente)));
+        return mapper.toClienteDTO(clienteGateway.save(clienteExitente));
     }
 
-    public void atualizarDadosCliente(Cliente clienteExitente, Cliente clienteNovo) {
+    public void atualizarDadosCliente(ClienteEntity clienteExitente, Cliente clienteNovo) {
         clienteExitente.setNome(clienteNovo.getNome());
         clienteExitente.setEmail(clienteNovo.getEmail());
         clienteExitente.setTelefone(clienteNovo.getTelefone());

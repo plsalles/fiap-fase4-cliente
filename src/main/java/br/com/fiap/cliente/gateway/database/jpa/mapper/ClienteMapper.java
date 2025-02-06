@@ -28,6 +28,7 @@ public class ClienteMapper {
 
     public ClienteDTO toClienteDTO(ClienteEntity clienteEntity) {
         return new ClienteDTO(
+                clienteEntity.getId(),
                 clienteEntity.getNome(),
                 clienteEntity.getEmail(),
                 clienteEntity.getTelefone(),
