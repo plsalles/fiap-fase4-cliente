@@ -47,10 +47,7 @@ public class ClienteUseCase {
     }
 
     public void atualizarDadosCliente(ClienteEntity clienteExitente, Cliente clienteNovo) {
-        clienteExitente.setNome(clienteNovo.getNome());
-        clienteExitente.setEmail(clienteNovo.getEmail());
-        clienteExitente.setTelefone(clienteNovo.getTelefone());
-        clienteExitente.setEndereco(clienteNovo.getEndereco());
+        clienteExitente.atualizarCliente(clienteNovo.getNome(), clienteNovo.getEmail(), clienteNovo.getTelefone(), clienteNovo.getEndereco());
     }
 
     public void deletaCliente(Long id) {

@@ -1,13 +1,13 @@
 package br.com.fiap.cliente.gateway.database.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
 @Table(name = "clientes")
 @NoArgsConstructor
 public class ClienteEntity {
@@ -26,5 +26,12 @@ public class ClienteEntity {
         this.telefone = telefone;
         this.endereco = endereco;
         this.dataCadastro = dataCadastro;
+    }
+
+    public void atualizarCliente(String nome, String email, String telefone, String endereco) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.endereco = endereco;
     }
 }
